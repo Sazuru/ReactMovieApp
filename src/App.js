@@ -11,19 +11,37 @@ const movie = {
 };
 
 function Image(props) {
-  return <img src={props.src} alt={props.alt}></img>;
+  return <img src={props.src} alt={props.alt} width="300px"></img>;
 }
 
 class MovieItem extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      show: false,
+    };
+  }
   render() {
     const {
-      data: { title, vote_average, image },
+      data: { title, vote_average, image, overview },
     } = this.props;
     return (
       <div>
         <Image src={image} alt={title} />
         <p>{title}</p>
         <p>{vote_average}</p>
+        <button
+          type="button"
+          onClick={() => {
+            this.setState({
+              show: true,
+            });
+          }}
+        >
+          Show
+        </button>
+        {this.state.show ? <p>{overview} </p> : null}
       </div>
     );
   }
