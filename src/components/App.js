@@ -9,8 +9,17 @@ class App extends React.Component {
 
     this.state = {
       movies: moviesData,
+      moviesWillWatch: [],
     };
   }
+
+  addMovieToWillWatch = movie => {
+    const updateMoviesWillWatch = [...this.state.moviesWillWatch, movie];
+
+    this.setState({
+      moviesWillWatch: updateMoviesWillWatch,
+    });
+  };
 
   removeMovie = movie => {
     const updateMovies = this.state.movies.filter(function(item) {
@@ -23,16 +32,27 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.state.movies.map(movie => {
-          return (
-            <MovieItem
-              key={movie.id}
-              movie={movie}
-              removeMovie={this.removeMovie}
-            />
-          );
-        })}
+      <div className="container">
+        <div className="row">
+          <div className="col-9">
+            <div className="row">
+              {this.state.movies.map(movie => {
+                return (
+                  <div className="col-6 mb-4" key={movie.id}>
+                    <MovieItem
+                      movie={movie}
+                      removeMovie={this.removeMovie}
+                      addMovieToWillWatch={this.addMovieToWillWatch}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="col-3">
+            <p>Will watch: {this.state.moviesWillWatch.length}</p>
+          </div>
+        </div>
       </div>
     );
   }
