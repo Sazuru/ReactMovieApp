@@ -4,6 +4,7 @@ import React from 'react';
 import { API_KEY_3, API_URL } from '../utils/api';
 import MovieTabs from './MovieTabs';
 import MovieItem from './MovieItem';
+import Pages from './Pages';
 
 class App extends React.Component {
   constructor() {
@@ -14,18 +15,21 @@ class App extends React.Component {
       moviesWillWatch: [],
       sortBy: 'popularity.desc',
       page: 1,
+      totalPages: 0,
       isLoading: false,
     };
   }
 
   componentDidMount() {
-    console.log('rerender1');
     this.setState({ isLoading: true });
     this.getMovies();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    return prevState.sortBy !== this.state.sortBy ? this.getMovies() : false;
+    return prevState.sortBy !== this.state.sortBy ||
+      prevState.page !== this.state.page
+      ? this.getMovies()
+      : false;
   }
 
   getMovies = () => {
@@ -37,8 +41,24 @@ class App extends React.Component {
         this.setState({
           movies: data.results,
           isLoading: false,
+          totalPages: data.total_pages,
         });
       });
+  };
+
+  updateSortBy = value => {
+    this.setState({
+      sortBy: value,
+      page: 1,
+    });
+  };
+
+  changePage = value => {
+    if (value > 0) {
+      this.setState({
+        page: value,
+      });
+    }
   };
 
   addMovieToWillWatch = movie => {
@@ -67,13 +87,6 @@ class App extends React.Component {
     this.setState({
       movies: updateMovies,
     });
-  };
-
-  updateSortBy = value => {
-    this.setState({
-      sortBy: value,
-    });
-    console.log(this.state.sortBy);
   };
 
   render() {
@@ -117,12 +130,11 @@ class App extends React.Component {
                 </li>
               ))}
             </ul>
-            <div className="row">
-              <ul className="pages">
-                Выбор страницы
-                <li>Page {this.state.page}</li>
-              </ul>
-            </div>
+            <Pages
+              page={this.state.page}
+              totalPages={this.state.totalPages}
+              changePage={this.changePage}
+            />
           </div>
         </div>
       </div>
