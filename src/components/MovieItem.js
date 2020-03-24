@@ -1,4 +1,5 @@
 import React from 'react';
+import image from '../img/imgNotFound.png';
 
 class MovieItem extends React.Component {
   constructor() {
@@ -28,14 +29,14 @@ class MovieItem extends React.Component {
     const buttonText = this.state.willWatch
       ? 'Remove From Will Watch'
       : 'Will Watch';
+    const imgFile =
+      movie.backdrop_path || movie.poster_path
+        ? `https://image.tmdb.org/t/p/w500${movie.backdrop_path ||
+            movie.poster_path}`
+        : image;
     return (
       <div className="card">
-        <img
-          className="card-img-top"
-          src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path ||
-            movie.poster_path}`}
-          alt=""
-        />
+        <img className="card-img-top" src={imgFile} alt="" />
         <div className="card-body">
           <h6 className="card-title">{movie.title}</h6>
           <div className="d-flex justify-content-between align-items-center">

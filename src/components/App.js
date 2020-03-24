@@ -13,27 +13,30 @@ class App extends React.Component {
       movies: [],
       moviesWillWatch: [],
       sortBy: 'popularity.desc',
+      page: 1,
+      isLoading: false,
     };
   }
 
   componentDidMount() {
+    console.log('rerender1');
+    this.setState({ isLoading: true });
     this.getMovies();
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate(prevProps, prevState) {
     return prevState.sortBy !== this.state.sortBy ? this.getMovies() : false;
   }
 
   getMovies = () => {
     fetch(
-      `${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${this.state.sortBy}`
+      `${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${this.state.sortBy}&page=${this.state.page}`
     )
-      .then(response => {
-        return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
         this.setState({
           movies: data.results,
+          isLoading: false,
         });
       });
   };
@@ -74,6 +77,9 @@ class App extends React.Component {
   };
 
   render() {
+    if (this.state.isLoading) {
+      return <p>Loading ...</p>;
+    }
     return (
       <div className="container">
         <div className="row mt-3">
@@ -111,6 +117,12 @@ class App extends React.Component {
                 </li>
               ))}
             </ul>
+            <div className="row">
+              <ul className="pages">
+                Выбор страницы
+                <li>Page {this.state.page}</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
