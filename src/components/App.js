@@ -2,6 +2,7 @@ import React from 'react';
 // import { render } from '@testing-library/react';
 // import { moviesData } from '../moviesData';
 import { API_KEY_3, API_URL } from '../utils/api';
+import MovieTabs from './MovieTabs';
 import MovieItem from './MovieItem';
 
 class App extends React.Component {
@@ -11,11 +12,22 @@ class App extends React.Component {
     this.state = {
       movies: [],
       moviesWillWatch: [],
+      sortBy: 'popularity.desc',
     };
   }
 
   componentDidMount() {
-    fetch(`${API_URL}/discover/movie?api_key=${API_KEY_3}`)
+    this.getMovies();
+  }
+
+  componentDidUpdate(prevState) {
+    return prevState.sortBy !== this.state.sortBy ? this.getMovies() : false;
+  }
+
+  getMovies = () => {
+    fetch(
+      `${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${this.state.sortBy}`
+    )
       .then(response => {
         return response.json();
       })
@@ -24,7 +36,7 @@ class App extends React.Component {
           movies: data.results,
         });
       });
-  }
+  };
 
   addMovieToWillWatch = movie => {
     const updateMoviesWillWatch = [...this.state.moviesWillWatch, movie];
@@ -54,11 +66,24 @@ class App extends React.Component {
     });
   };
 
+  updateSortBy = value => {
+    this.setState({
+      sortBy: value,
+    });
+    console.log(this.state.sortBy);
+  };
+
   render() {
     return (
       <div className="container">
-        <div className="row">
+        <div className="row mt-3">
           <div className="col-9">
+            <div className="row justify-content-center">
+              <MovieTabs
+                sortBy={this.state.sortBy}
+                updateSortBy={this.updateSortBy}
+              />
+            </div>
             <div className="row">
               {this.state.movies.map(movie => {
                 return (
