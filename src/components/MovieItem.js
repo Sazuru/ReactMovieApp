@@ -26,9 +26,10 @@ class MovieItem extends React.Component {
     const classNameButton = `btn ${
       this.state.willWatch ? 'btn-success' : 'btn-secondary'
     }`;
-    const buttonText = this.state.willWatch
-      ? 'Remove From Will Watch'
-      : 'Will Watch';
+    const buttonText = 'Will Watch';
+    // this.state.willWatch
+    //   ? 'Remove From Will Watch'
+    //   : 'Will Watch';
     const imgFile =
       movie.backdrop_path || movie.poster_path
         ? `https://image.tmdb.org/t/p/w500${movie.backdrop_path ||
