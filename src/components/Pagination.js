@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Pages = props => {
+const Pagination = props => {
   const { currentPage, totalPages, changeCurrentPage } = props;
   const pageNumbers = Array.from(Array(totalPages), (x, index) => index + 1);
   const renderPageNumbers = pageNumbers.map(value => {
@@ -30,4 +30,4 @@ const Pages = props => {
     </div>
   );
 };
-export default Pages;
+export default Pagination;

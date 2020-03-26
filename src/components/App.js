@@ -4,7 +4,7 @@ import React from 'react';
 import { API_KEY_3, API_URL } from '../utils/api';
 import MovieTabs from './MovieTabs';
 import MovieItem from './MovieItem';
-import Pages from './Pages';
+import Pagination from './Pagination';
 
 class App extends React.Component {
   constructor() {
@@ -119,7 +119,7 @@ class App extends React.Component {
               })}
             </div>
             <div className="row justify-content-center">
-              <Pages
+              <Pagination
                 currentPage={this.state.currentPage}
                 totalPages={this.state.totalPages}
                 changeCurrentPage={this.changeCurrentPage}
