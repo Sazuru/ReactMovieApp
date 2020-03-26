@@ -1,4 +1,4 @@
-Это домашний проект, направленный на изучение и закрепление возможностей React в области создания интерактивных интерфейсов и управления их состоянием.
+Это проект, направленный на изучение и закрепление возможностей React в области создания интерактивных интерфейсов и управления их состоянием.
 В первой версии создана страница со списком фильмов, взятых с API TMDb(https://www.themoviedb.org).
 
 Фичи первой версии:
@@ -7,6 +7,15 @@
 2. Возможность добавления фильмов в список "Will Watch";
 3. Возможность удаления фильмов со страницы (Только на клиентской стороне);
 4. Настроена пагинация для навигации по всей базе фильмов.
+
+This is a project aimed at exploring and consolidating React's capabilities in creating interactive interfaces and managing their state. The first version created a page with a list of films taken from the TMDb API (https://www.themoviedb.org).
+
+Features of the first version:
+
+1. The ability to filter the list in descending order by three parameters: Popularity, Revenue, Average rating;
+2. Ability to add movies to the list of "Will Watch";
+3. Ability to remove movies from the page (Only on the client side);
+4. Pagination configured to navigate the entire database of films.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
